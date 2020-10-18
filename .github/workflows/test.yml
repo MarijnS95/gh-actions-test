@@ -1,0 +1,17 @@
+name: repo-sync
+on: [push]
+
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Define variables
+      run: |
+        echo "upstream=sonyxperiadev/device-sony-pdx201" >> $GITHUB_ENV
+        echo "rebase_base=q-mr1" >> $GITHUB_ENV
+        echo "rebase_head=MartinX3/lineage-17.1" >> $GITHUB_ENV
+    - name: Print variables
+      run: |
+        echo ${{ env.upstream }}
+        echo ${{ env.rebase_base }}
+        echo ${{ env.rebase_head }}
