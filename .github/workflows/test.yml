@@ -2,16 +2,34 @@ name: repo-sync
 on: [push]
 
 jobs:
-  repo-sync:
+  Multiline_fail:
+    name: Multiline fail
+    strategy:
+      fail-fast: false
     runs-on: ubuntu-latest
     steps:
-    - name: Define variables
-      run: |
-        echo "upstream=sonyxperiadev/device-sony-pdx201" >> $GITHUB_ENV
-        echo "rebase_base=q-mr1" >> $GITHUB_ENV
-        echo "rebase_head=MartinX3/lineage-17.1" >> $GITHUB_ENV
-    - name: Print variables
-      run: |
-        echo ${{ env.upstream }}
-        echo ${{ env.rebase_base }}
-        echo ${{ env.rebase_head }}
+    - run: |
+        echo Hello
+        false
+        echo Goodbye
+  Multiline_fail_in_pipe:
+    name: Multiline fail in pipe
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo Hello
+        echo "test" | false | tee foobar
+        echo Goodbye
+  Multiline_fail_in_chain:
+    name: Multiline fail in chain
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo Hello
+        mkdir test
+        cd test && false && cd ..
+        echo Goodbye
