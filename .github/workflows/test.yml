@@ -1,0 +1,32 @@
+name: Test exit codes
+on: [push]
+
+jobs:
+  fail:
+    name: Fail
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        false
+        echo "This is not printed"
+
+  fail-consume:
+    name: Fail with && consume
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        false && echo "This is not printed"
+
+  unexpected-success:
+    name: Unexpected success
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        false && echo "This is not printed"
+        echo "Oh noes, this is printed, and the script exits successfully"
