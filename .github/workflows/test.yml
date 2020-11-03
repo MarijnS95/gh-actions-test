@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
+        set -e
         echo Hello
         false
         echo Goodbye
@@ -19,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
+        set -e
         echo Hello
         echo "test" | false | tee foobar
         echo Goodbye
@@ -29,6 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
+        set -e
         echo Hello
         mkdir test
         cd test && false && cd .. && echo after
@@ -42,6 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
+        set -e
         echo Hello
         false
         echo Goodbye
@@ -54,6 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
+        set -e
         echo Hello
         echo "test" | false | tee foobar
         echo Goodbye
@@ -66,6 +71,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
+        set -e
         echo Hello
         mkdir test
         cd test && false && cd .. && echo after
