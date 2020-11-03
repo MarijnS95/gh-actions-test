@@ -36,6 +36,18 @@ jobs:
         mkdir test
         cd test && false && cd .. && echo after
         echo Goodbye
+  Multiline_fail_in_false_chain:
+    name: Multiline fail in false chain
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        set -e
+        echo Hello
+        mkdir test
+        cd test && false
+        echo Goodbye
 
 
   bash_Multiline_fail:
@@ -75,6 +87,20 @@ jobs:
         echo Hello
         mkdir test
         cd test && false && cd .. && echo after
+        echo Goodbye
+      shell: bash
+
+  bash_Multiline_fail_in_false_chain:
+    name: Bash Multiline fail in false chain
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        set -e
+        echo Hello
+        mkdir test
+        cd test && false
         echo Goodbye
       shell: bash
 
