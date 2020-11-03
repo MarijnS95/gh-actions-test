@@ -31,5 +31,44 @@ jobs:
     - run: |
         echo Hello
         mkdir test
-        cd test && false && cd ..
+        cd test && false && cd .. && echo after
         echo Goodbye
+
+
+  bash_Multiline_fail:
+    name: Bash Multiline fail
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo Hello
+        false
+        echo Goodbye
+      shell: bash
+
+  bash_Multiline_fail_in_pipe:
+    name: Bash Multiline fail in pipe
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo Hello
+        echo "test" | false | tee foobar
+        echo Goodbye
+      shell: bash
+
+  bash_Multiline_fail_in_chain:
+    name: Bash Multiline fail in chain
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo Hello
+        mkdir test
+        cd test && false && cd .. && echo after
+        echo Goodbye
+      shell: bash
+
