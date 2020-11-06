@@ -2,118 +2,25 @@ name: repo-sync
 on: [push]
 
 jobs:
-  Multiline_fail:
-    name: Multiline fail
+  test:
+    name: test
     strategy:
       fail-fast: false
-    runs-on: ubuntu-latest
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
-    - run: |
-        set -e
-        echo Hello
-        false
-        echo Goodbye
-  Multiline_fail_in_pipe:
-    name: Multiline fail in pipe
+    - shell: bash
+      run: |
+         curl -L https://dl.google.com/android/repository/android-ndk-r20-${{ runner.os }}-x86_64.zip | unzip -
+  test2:
+    name: Test with bb
     strategy:
       fail-fast: false
-    runs-on: ubuntu-latest
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
-    - run: |
-        set -e
-        echo Hello
-        echo "test" | false | tee foobar
-        echo Goodbye
-  Multiline_fail_in_chain:
-    name: Multiline fail in chain
-    strategy:
-      fail-fast: false
-    runs-on: ubuntu-latest
-    steps:
-    - run: |
-        set -e
-        echo Hello
-        mkdir test
-        cd test && false && cd .. && echo after
-        echo Goodbye
-
-  Multiline_fail_last_in_chain:
-    name: Multiline fail in chain
-    strategy:
-      fail-fast: false
-    runs-on: ubuntu-latest
-    steps:
-    - run: |
-        set -e
-        echo Hello
-        mkdir test
-        cd test && false && cd .. && echo after
-
-  Multiline_fail_in_false_chain:
-    name: Multiline fail in false chain
-    strategy:
-      fail-fast: false
-    runs-on: ubuntu-latest
-    steps:
-    - run: |
-        set -e
-        echo Hello
-        mkdir test
-        cd test && false
-        echo Goodbye
-
-
-  bash_Multiline_fail:
-    name: Bash Multiline fail
-    strategy:
-      fail-fast: false
-    runs-on: ubuntu-latest
-    steps:
-    - run: |
-        set -e
-        echo Hello
-        false
-        echo Goodbye
-      shell: bash
-
-  bash_Multiline_fail_in_pipe:
-    name: Bash Multiline fail in pipe
-    strategy:
-      fail-fast: false
-    runs-on: ubuntu-latest
-    steps:
-    - run: |
-        set -e
-        echo Hello
-        echo "test" | false | tee foobar
-        echo Goodbye
-      shell: bash
-
-  bash_Multiline_fail_in_chain:
-    name: Bash Multiline fail in chain
-    strategy:
-      fail-fast: false
-    runs-on: ubuntu-latest
-    steps:
-    - run: |
-        set -e
-        echo Hello
-        mkdir test
-        cd test && false && cd .. && echo after
-        echo Goodbye
-      shell: bash
-
-  bash_Multiline_fail_in_false_chain:
-    name: Bash Multiline fail in false chain
-    strategy:
-      fail-fast: false
-    runs-on: ubuntu-latest
-    steps:
-    - run: |
-        set -e
-        echo Hello
-        mkdir test
-        cd test && false
-        echo Goodbye
-      shell: bash
-
+    - shell: bash
+      run: |
+         curl -L https://dl.google.com/android/repository/android-ndk-r20-${{ runner.os }}-x86_64.zip | busybox unzip -
