@@ -7,20 +7,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, mac-latest]
     runs-on: ${{ matrix.os }}
     steps:
     - shell: bash
       run: |
-         curl -L https://dl.google.com/android/repository/android-ndk-r20-${{ runner.os }}-x86_64.zip | unzip -
-  test2:
-    name: Test with bb
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-    - shell: bash
-      run: |
-         curl -L https://dl.google.com/android/repository/android-ndk-r20-${{ runner.os }}-x86_64.zip | busybox unzip -
+          os=${{ runner.os }}
+          file=android-ndk-r20-${os/macOS/darwin}-x86_64.zip
+          curl -LO https://dl.google.com/android/repository/$file
+          unzip $file
