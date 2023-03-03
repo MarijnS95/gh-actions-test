@@ -12,7 +12,8 @@ jobs:
     steps:
     - shell: bash
       run: |
-          os=${{ runner.os }}
-          file=android-ndk-r20-${os/macOS/darwin}-x86_64.zip
-          curl -LO https://dl.google.com/android/repository/$file
-          unzip $file
+        env
+        #os=${{ runner.os }}
+        #file=android-ndk-r20-${os/macOS/darwin}-x86_64.zip
+        #curl -LO https://dl.google.com/android/repository/$file
+        #unzip $file
